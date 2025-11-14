@@ -1,32 +1,51 @@
-version: '3.9'
+# docker-compose.yml
 
 services:
-  # ------------------ Backend ------------------
-  backend:
-    build: ./backend
-    container_name: ecobin-backend
-    ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=development
-      - PORT=3000
-      - MINIO_ENDPOINT=minio
-      - MINIO_PORT=9000
-      - MINIO_ACCESS_KEY=${MINIO_ROOT_USER} || ${MINIR_ACCESS_KEY}
-      - MINIO_SECRET_KEY=${MINIO_ROOT_PASSWORD} || ${MINIO_SECRET_KEY}
-      - MONGO_URL=${MONGO_URL}
-    depends_on:
-      - minio
-    restart: unless-stopped
-
-  # ------------------ Frontend ------------------
   frontend:
-    build: ./frontend
+    image: ecobin-frontend:latest
     container_name: ecobin-frontend
     ports:
-      - "5173:80" # maps React build to host
+      - "3000:80"          # nginx inside container listens on 80
     depends_on:
       - backend
-    restart: unless-stopped
 
-  
+  backend:
+    image: ecobin-backend:latest
+    container_name: ecobin-backend
+    ports:
+      - "5000:5000"
+    environment:
+      # fix typo: MINIR_ACCESS_KEY -> MINIO_ACCESS_KEY
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin123}
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:-minioadmin}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY:-minioadmin123}
+      MONGO_URL: ${MONGO_URL:-mongodb://mongo:27017/ecobin}
+    depends_on:
+      - mongo
+      - minio
+
+  mongo:
+    image: mongo:6
+    container_name: ecobin-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  minio:
+    image: minio/minio
+    container_name: ecobin-minio
+    command: server /data --console-address ":9001"
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin123}
+    volumes:
+      - minio_data:/data
+
+volumes:
+  mongo_data:
+  minio_data:
