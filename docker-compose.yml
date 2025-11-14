@@ -3,7 +3,7 @@ services:
     image: ecobin-frontend:latest
     container_name: ecobin-frontend
     ports:
-      - "5173:80"          # nginx inside container listens on 80
+      - "5001:80"          # nginx inside container listens on 80
     depends_on:
       - backend
 
@@ -11,7 +11,7 @@ services:
     image: ecobin-backend:latest
     container_name: ecobin-backend
     ports:
-      - "3000:3000"
+      - "5002:5000" 
     environment:
     
     
