@@ -8,8 +8,7 @@ pipeline {
     }
 
     triggers {
-        // GitHub webhook se trigger hoga
-        pollSCM('* * * * *') // safe option; webhook se bhi chalega, polling se bhi
+      githunPush()
     }
 
     stages {
