@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  # ------------------ Backend ------------------
+  backend:
+    build: ./backend
+    container_name: ecobin-backend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - MINIO_ENDPOINT=minio
+      - MINIO_PORT=9000
+      - MINIO_ACCESS_KEY=${MINIO_ROOT_USER} || ${MINIR_ACCESS_KEY}
+      - MINIO_SECRET_KEY=${MINIO_ROOT_PASSWORD} || ${MINIO_SECRET_KEY}
+      - MONGO_URL=${MONGO_URL}
+    depends_on:
+      - minio
+    restart: unless-stopped
+
+  # ------------------ Frontend ------------------
+  frontend:
+    build: ./frontend
+    container_name: ecobin-frontend
+    ports:
+      - "5173:80" # maps React build to host
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  
