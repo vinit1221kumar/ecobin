@@ -7,8 +7,11 @@ pipeline {
         BACKEND_IMAGE  = "ecobin-backend"
     }
 
+    // NOTE:
+    // - Agar NORMAL pipeline job hai → ye rakho
+    // - Agar MULTIBRANCH pipeline job hai → poora triggers block hata do
     triggers {
-      githunPush()
+        githubPush()   // FIXED: githunPush() -> githubPush()
     }
 
     stages {
@@ -41,8 +44,9 @@ pipeline {
             steps {
                 echo "Starting containers with docker-compose..."
                 sh """
-                  docker compose down || true
-                  docker compose up -d
+                  # yahan decide karo: docker compose ya docker-compose
+                  docker compose -f docker-compose.yml down || true
+                  docker compose -f docker-compose.yml up -d --build --force-recreate
                 """
             }
         }
