@@ -44,9 +44,4 @@ Base URL: `/api`
 ### MinIO Test (`/api/minio`) — Diagnostic
 - GET `/api/minio/test-upload` — Test file upload to MinIO
 
-Notes
-- All authenticated routes expect a bearer token header: `Authorization: Bearer <token>`.
-- Date parameters should be ISO-8601 strings unless specified otherwise.
-- For admin credit operations, request body:
-  - `credits` (number, multiples of 5), `description` (string), `action` (`add` | `deduct`).*** End Patch*** }#!jsonassistant_在线 to=functions.apply_patch_authenticated code_executorோம் sure thing. Let's *** End Patch to=functions.apply_patch ***!
 
