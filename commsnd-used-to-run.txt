@@ -1,4 +1,4 @@
-###create a minio cotainer and volume
+### create a minio cotainer and volume
   docker run \
   -p 9000:9000 \
   -p 9001:9001 \
@@ -9,18 +9,18 @@
   quay.io/minio/minio server /data --console-address ":9001"
 
 
- ###docker command to form a container of jenkins
+ ### docker command to form a container of jenkins
 
   docker run -d -p 8080:8080 -p 50000:50000 
   -v jenkins_home:/var/jenkins_home 
   --name jenkins jenkins/jenkins:lts
 
 
- ###how to rename a container
+ ### how to rename a container
 
   docker rename my_old_container my_new_container
 
-  ###how to start and stop a  docker container
+  ### how to start and stop a  docker container
 
   docker start [container name]
   docker stop [container name]
