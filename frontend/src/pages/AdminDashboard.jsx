@@ -554,7 +554,7 @@ const AdminDashboard = () => {
                     </div>
 
                     {/* Additional Stats */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                       <div className="p-6 rounded-xl" style={{ backgroundColor: '#0F172A', border: '2px solid #00B8A9' }}>
                         <h4 className="text-lg font-bold m-0 mb-2" style={{ color: '#00B8A9' }}>Total Rewards Distributed</h4>
                         <p className="text-4xl font-bold m-0" style={{ color: '#E2E8F0' }}>{stats.totalCredits || 0} 💚</p>
@@ -567,6 +567,46 @@ const AdminDashboard = () => {
                         <h4 className="text-lg font-bold m-0 mb-2" style={{ color: '#4CAF50' }}>Active Users</h4>
                         <p className="text-4xl font-bold m-0" style={{ color: '#E2E8F0' }}>{stats.activeUsers || 0}</p>
                       </div>
+                    </div>
+
+                    {/* Deploy Button */}
+                    <div className="text-center">
+                      <button
+                        onClick={async () => {
+                          if (!window.confirm('Deploy latest build to production?')) return;
+                          try {
+                            setLoading(true);
+                            const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000/api'}/admin/deploy`, {
+                              method: 'POST',
+                              headers: {
+                                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                                'Content-Type': 'application/json',
+                              },
+                            });
+                            const data = await response.json();
+                            if (response.ok) {
+                              alert('✅ Deployment triggered successfully!');
+                            } else {
+                              alert(`❌ Deployment failed: ${data.message}`);
+                            }
+                          } catch (err) {
+                            alert(`❌ Error: ${err.message}`);
+                          } finally {
+                            setLoading(false);
+                          }
+                        }}
+                        disabled={loading}
+                        className="px-8 py-4 text-lg font-bold rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                        style={{
+                          backgroundColor: '#00B8A9',
+                          color: '#FFFFFF',
+                          boxShadow: '0 0 20px rgba(0, 184, 169, 0.4)',
+                        }}
+                        onMouseEnter={(e) => !loading && (e.target.style.backgroundColor = '#009688')}
+                        onMouseLeave={(e) => !loading && (e.target.style.backgroundColor = '#00B8A9')}
+                      >
+                        🚀 Deploy Latest Build
+                      </button>
                     </div>
                   </>
                 ) : (

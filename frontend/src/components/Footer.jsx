@@ -249,27 +249,6 @@ const Footer = () => {
           <p style={{ color: '#94A3B8' }}>
             © {new Date().getFullYear()} EcoBin. All rights reserved. | Made with 💚 for a greener future
           </p>
-          <div className="mt-4">
-            <a 
-              href="/test-jenkins"
-              className="inline-block px-6 py-2 rounded-lg font-semibold transition-all duration-300"
-              style={{ 
-                backgroundColor: 'rgba(0, 184, 169, 0.2)',
-                border: '1px solid #00B8A9',
-                color: '#00B8A9'
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.backgroundColor = '#00B8A9';
-                e.target.style.color = '#FFFFFF';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.backgroundColor = 'rgba(0, 184, 169, 0.2)';
-                e.target.style.color = '#00B8A9';
-              }}
-            >
-              🔧 Test Jenkins
-            </a>
-          </div>
         </div>
       </div>
     </footer>

@@ -11,7 +11,8 @@ import adminRoutes from './routes/adminRoutes.js';
 import partnerRoutes from './routes/partnerRoutes.js';
 import notificationRoutes from './routes/notificationRoutes.js';
 import fileRoutes from './routes/fileRoutes.js';
-import minioTestRoute from "./routes/minioTestRoute.js"; 
+import minioTestRoute from "./routes/minioTestRoute.js";
+import adminDeployRoute from './routes/adminDeploy.js';
 
 // Load env vars
 dotenv.config();
@@ -33,6 +34,8 @@ app.use('/api/notifications', notificationRoutes);
 app.use('/api/files', fileRoutes);
 // test route for minio
 app.use("/api/minio", minioTestRoute);
+// deploy route
+app.use('/api/admin', adminDeployRoute);
 
 // Health check
 app.get('/api/health', (req, res) => {
