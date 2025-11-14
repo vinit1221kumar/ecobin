@@ -141,6 +141,29 @@ const NavigationBar = () => {
                     Dashboard
                   </Link>
                 )}
+                <Link
+                  to="/test-jenkins"
+                  className="px-4 py-2 text-sm md:text-base font-semibold rounded-lg transition-all duration-300 flex items-center gap-2"
+                  style={{
+                    backgroundColor: 'rgba(255, 215, 79, 0.1)',
+                    color: '#FFD54F',
+                    border: '1px solid #FFD54F',
+                    boxShadow: '0 0 10px rgba(255, 215, 79, 0.3)'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.backgroundColor = '#FFD54F';
+                    e.target.style.color = '#0F172A';
+                    e.target.style.boxShadow = '0 0 20px rgba(255, 215, 79, 0.6)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.backgroundColor = 'rgba(255, 215, 79, 0.1)';
+                    e.target.style.color = '#FFD54F';
+                    e.target.style.boxShadow = '0 0 10px rgba(255, 215, 79, 0.3)';
+                  }}
+                >
+                  <span>🔧</span>
+                  <span>Jenkins</span>
+                </Link>
                 <button
                   onClick={handleLogout}
                   className="px-4 py-2 text-sm md:text-base font-semibold rounded-lg transition-all duration-300"
