@@ -14,7 +14,7 @@ services:
       - "5002:5000" 
     environment:
 
-      MONGO_URL: mongodb://host.docker.internal:27017/ecobin
+      MONGODB_URI: mongodb://localhost:27017/ecobin
       MINIO_ENDPOINT: host.docker.internal
       MINIO_PORT: 9000
       JWT_SECRET: 9bb22f51df60da4b162e30da64a14e2aa5adaea4
