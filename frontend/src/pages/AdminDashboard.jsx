@@ -63,6 +63,7 @@ const AdminDashboard = () => {
       loadUsers();
     } else if (activeTab === 'pickups') {
       loadPickups();
+      loadUsers(); // Load users to get collectors for assignment
     } else if (activeTab === 'partners') {
       loadPartners();
     } else if (activeTab === 'analytics') {
